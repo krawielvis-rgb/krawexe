@@ -124,12 +124,15 @@ export function ScanTool() {
       </Button>
 
       {result && (
-        <ResultsPanel
-          result={result}
-          improved={improved}
-          onImprovedChange={setImproved}
-          original={resumeText}
-        />
+        <>
+          <ResultsPanel
+            result={result}
+            improved={improved}
+            onImprovedChange={setImproved}
+            original={resumeText}
+          />
+          <AdSlot id="ats-ad-below-results" height={250} />
+        </>
       )}
     </div>
   );
