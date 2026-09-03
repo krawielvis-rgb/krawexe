@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertTriangle,
   CheckCircle2,
@@ -9,8 +8,8 @@ import {
   Upload,
   XCircle,
 } from "lucide-react";
-import { AppShell } from "@/components/AppShell";
 import { ScoreBar, ScoreGauge } from "@/components/ScoreGauge";
+import { AdSlot } from "@/components/AdSlot";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,32 +18,7 @@ import { analyze, type Analysis } from "@/lib/ats/analyze";
 import { extractText } from "@/lib/ats/extract";
 import { exportDocx, exportPdf, exportTxt } from "@/lib/ats/exporters";
 
-export const Route = createFileRoute("/scan")({
-  head: () => ({
-    meta: [
-      { title: "Scan Resume — ATS Pro" },
-      {
-        name: "description",
-        content:
-          "Upload a resume and paste a job description to get a rule-based ATS score, keyword gaps, format checks and an improved resume you can export.",
-      },
-      { property: "og:title", content: "Scan Resume — ATS Pro" },
-      {
-        property: "og:description",
-        content: "Rule-based ATS scoring with keyword matching, format checks and export.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: () => (
-    <AppShell>
-      <ScanPage />
-    </AppShell>
-  ),
-});
-
-function ScanPage() {
+export function ScanTool() {
   const [jd, setJd] = useState("");
   const [resumeText, setResumeText] = useState("");
   const [fileName, setFileName] = useState("");
@@ -150,12 +124,15 @@ function ScanPage() {
       </Button>
 
       {result && (
-        <ResultsPanel
-          result={result}
-          improved={improved}
-          onImprovedChange={setImproved}
-          original={resumeText}
-        />
+        <>
+          <ResultsPanel
+            result={result}
+            improved={improved}
+            onImprovedChange={setImproved}
+            original={resumeText}
+          />
+          <AdSlot id="ats-ad-below-results" height={250} />
+        </>
       )}
     </div>
   );
@@ -359,7 +336,7 @@ export function DownloadRow({ text, baseName }: { text: string; baseName: string
 function WordDiff({ original, updated }: { original: string; updated: string }) {
   const [parts, setParts] = useState<{ value: string; added?: boolean; removed?: boolean }[]>([]);
 
-  useMemo(() => {
+  useEffect(() => {
     let cancelled = false;
     import("diff").then(({ diffWords }) => {
       if (!cancelled) setParts(diffWords(original, updated));
