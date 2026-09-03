@@ -1,106 +1,96 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent } from "react";
-import { Lock, ShieldCheck, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { isAuthed, login } from "@/lib/session";
+import { createFileRoute } from "@tanstack/react-router";
+import { FileSearch, Sparkles, Download } from "lucide-react";
+import { SiteShell } from "@/components/SiteShell";
+import { AdSlot } from "@/components/AdSlot";
+import { ScanTool } from "@/components/ScanTool";
+
+const TITLE = "Free ATS Resume Scanner & CV Builder — No Signup";
+const DESC =
+  "Scan your resume against any job description for a free, rule-based ATS score, fix keyword and format gaps, and export an ATS-friendly CV as PDF or DOCX. No signup, no AI.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ATS Pro — Resume Scanner & ATS-Friendly CV Builder" },
-      {
-        name: "description",
-        content:
-          "Sign in to ATS Pro: scan your resume against any job description and build an ATS-friendly CV. Rule-based scoring, no AI required.",
-      },
-      { property: "og:title", content: "ATS Pro — Resume Scanner & CV Builder" },
-      {
-        property: "og:description",
-        content:
-          "Deterministic ATS resume scoring, keyword gap analysis and an ATS-safe CV builder with PDF and DOCX export.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESC },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://krawexe.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [{ rel: "canonical", href: "https://krawexe.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "ATS Pro",
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web",
+          description: DESC,
+          url: "https://krawexe.lovable.app/",
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        }),
+      },
+    ],
   }),
-  component: LoginPage,
+  component: HomePage,
 });
 
-function LoginPage() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const steps = [
+  {
+    icon: FileSearch,
+    title: "1. Scan",
+    body: "Paste the job description and upload your resume (PDF or DOCX). We extract the text in your browser, pull the top keywords from the posting and check your resume for ATS format problems.",
+  },
+  {
+    icon: Sparkles,
+    title: "2. Fix",
+    body: "You get a 0–100 score, a matched/missing keyword table, pass-fail format checks and a prioritised list of fixes — plus an improved resume you can edit right on the page.",
+  },
+  {
+    icon: Download,
+    title: "3. Export",
+    body: "Download the result as a real text-based PDF, DOCX or TXT — selectable text a real applicant tracking system can actually read. Or build a fresh ATS-safe CV in the Build tab.",
+  },
+];
 
-  useEffect(() => {
-    if (isAuthed()) navigate({ to: "/scan", replace: true });
-  }, [navigate]);
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    if (login(username, password)) {
-      setError("");
-      navigate({ to: "/scan", replace: true });
-    } else {
-      setError("Invalid credentials");
-    }
-  }
-
+function HomePage() {
   return (
-    <div className="hero-surface flex min-h-screen items-center justify-center px-5">
-      <div className="w-full max-w-sm">
-        <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-primary/15">
-            <ShieldCheck className="size-6 text-primary" />
-          </div>
-          <h1 className="font-display text-3xl font-bold">ATS Pro</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Resume scanner and ATS-friendly CV builder. Private tool — sign in to continue.
-          </p>
-        </div>
+    <SiteShell>
+      <section className="hero-surface -mx-5 mb-2 px-5 py-10 text-center">
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          Free ATS resume scanner & CV builder
+        </h1>
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
+          Check how an applicant tracking system reads your resume against a specific job — keyword
+          match, format checks and a fixed-up version you can download. No signup, no AI, nothing
+          leaves your browser.
+        </p>
+      </section>
 
-        <form onSubmit={onSubmit} className="panel space-y-4 p-6">
-          <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
-            <div className="relative">
-              <User className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                id="username"
-                value={username}
-                autoComplete="username"
-                onChange={(e) => setUsername(e.target.value)}
-                className="pl-9"
-                placeholder="admin"
-              />
+      <AdSlot id="ats-ad-top-banner" height={90} />
+
+      <ScanTool />
+
+      <section className="mt-12 border-t border-border pt-10">
+        <h2 className="font-display text-2xl font-bold">How it works</h2>
+        <div className="mt-5 grid gap-4 sm:grid-cols-3">
+          {steps.map((s) => (
+            <div key={s.title} className="panel p-5">
+              <s.icon className="size-5 text-primary" />
+              <h3 className="mt-3 font-display text-base font-semibold">{s.title}</h3>
+              <p className="mt-1.5 text-sm text-muted-foreground">{s.body}</p>
             </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <div className="relative">
-              <Lock className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                autoComplete="current-password"
-                onChange={(e) => setPassword(e.target.value)}
-                className="pl-9"
-                placeholder="••••••"
-              />
-            </div>
-          </div>
-          {error && (
-            <p className="rounded-md bg-destructive/15 px-3 py-2 text-sm text-destructive">
-              {error}
-            </p>
-          )}
-          <Button type="submit" className="w-full">
-            Sign in
-          </Button>
-        </form>
-      </div>
-    </div>
+          ))}
+        </div>
+        <p className="mt-5 text-xs text-muted-foreground">
+          Every score and suggestion comes from deterministic keyword, synonym and regex rules that
+          run entirely in your browser. No AI models, no uploads to a server, no accounts.
+        </p>
+      </section>
+    </SiteShell>
   );
 }
