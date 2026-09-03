@@ -336,7 +336,7 @@ export function DownloadRow({ text, baseName }: { text: string; baseName: string
 function WordDiff({ original, updated }: { original: string; updated: string }) {
   const [parts, setParts] = useState<{ value: string; added?: boolean; removed?: boolean }[]>([]);
 
-  useMemo(() => {
+  useEffect(() => {
     let cancelled = false;
     import("diff").then(({ diffWords }) => {
       if (!cancelled) setParts(diffWords(original, updated));
