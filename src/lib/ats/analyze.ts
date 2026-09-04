@@ -209,6 +209,7 @@ export function extractKeywords(jd: string, limit = 15): Keyword[] {
   for (let i = 0; i < words.length - 1; i++) {
     const a = words[i];
     const b = words[i + 1];
+    if (!a || !b) continue;
     if (a.length < 3 || b.length < 3) continue;
     if (STOPWORDS.has(a) || STOPWORDS.has(b)) continue;
     const key = `${a} ${b}`;
