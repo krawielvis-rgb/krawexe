@@ -59,7 +59,7 @@ export function ScanTool() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-bold">Resume scanner</h1>
+        <h2 className="font-display text-3xl font-bold">Resume scanner</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Deterministic keyword + format analysis. Nothing leaves your browser, no AI involved.
         </p>
