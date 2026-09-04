@@ -53,7 +53,7 @@ const steps = [
   {
     icon: Download,
     title: "3. Export",
-    body: "Download the result as a real text-based PDF, DOCX or TXT — selectable text a real applicant tracking system can actually read. Or build a fresh ATS-safe CV in the Build tab.",
+    body: "Download the result as a real text-based PDF, DOCX or TXT — selectable text a real applicant tracking system can actually read.",
   },
 ];
 
