@@ -83,6 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "ATS resume scanner and ATS-friendly CV builder." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "google-site-verification", content: "BNs6hUMb15zwB_tRk2MmJW7oiXr4x_uS275iavc0eNs" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
