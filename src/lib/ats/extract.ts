@@ -23,13 +23,12 @@ async function extractPdf(file: File): Promise<ExtractResult> {
     text += strings.join(" ") + "\n";
   }
   const trimmed = text.trim();
-  return {
-    kind: "pdf",
-    text: trimmed,
-    warning: trimmed.length < 40
-      ? "No selectable text found in this PDF — it is most likely a scanned image. A real ATS will not be able to read it either. Re-export your resume as a text-based PDF or DOCX."
-      : undefined,
-  };
+  const result: ExtractResult = { kind: "pdf", text: trimmed };
+  if (trimmed.length < 40) {
+    result.warning =
+      "No selectable text found in this PDF — it is most likely a scanned image. A real ATS will not be able to read it either. Re-export your resume as a text-based PDF or DOCX.";
+  }
+  return result;
 }
 
 async function extractDocx(file: File): Promise<ExtractResult> {
