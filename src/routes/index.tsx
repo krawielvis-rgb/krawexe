@@ -99,7 +99,7 @@ function HomePage() {
             {[
               { label: "Contact info parses cleanly", ok: true },
               { label: "Section headings recognized", ok: true },
-              { label: "\u201cKubernetes\u201d — missing from posting", ok: false },
+              { label: "\u201cProject management\u201d — missing from posting", ok: false },
               { label: "Dates use consistent format", ok: true },
             ].map((row) => (
               <div key={row.label} className="flex items-center gap-2.5 text-sm">
@@ -116,12 +116,12 @@ function HomePage() {
                     </svg>
                   </span>
                 ) : (
-                  <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-destructive/20 text-destructive">
+                  <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-warning/20 text-warning">
                     <svg viewBox="0 0 12 12" className="size-2.5" fill="none">
                       <path
-                        d="M3 3l6 6M9 3l-6 6"
+                        d="M6 2.5v4M6 8.5h.01"
                         stroke="currentColor"
-                        strokeWidth="1.8"
+                        strokeWidth="1.6"
                         strokeLinecap="round"
                       />
                     </svg>
