@@ -1,4 +1,4 @@
-import { pinterestFetch } from "./pinterest-lib";
+import { pinterestFetch } from "./pinterest-lib.mts";
 
 export default async () => {
   try {

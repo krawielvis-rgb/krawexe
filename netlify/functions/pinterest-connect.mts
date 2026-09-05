@@ -1,5 +1,5 @@
 import { getStore } from "@netlify/blobs";
-import { redirectUri, siteUrl } from "./pinterest-lib";
+import { redirectUri, siteUrl } from "./pinterest-lib.mts";
 
 export default async () => {
   const clientId = process.env.PINTEREST_CLIENT_ID;

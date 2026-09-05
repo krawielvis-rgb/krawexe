@@ -1,7 +1,10 @@
 import { schedule } from "@netlify/functions";
-import { publishPin } from "./pinterest-lib";
+import { publishPin } from "./pinterest-lib.mts";
 
-export const handler = schedule(process.env.AUTOPILOT_SCHEDULE || "0 9 * * *", async () => {
+// Netlify statically reads this literal string at deploy time to register the
+// schedule — it cannot evaluate an expression like `process.env.X || "..."` here.
+// To change the schedule, edit this literal directly and redeploy.
+export const handler = schedule("0 9 * * *", async () => {
   try {
     const result = await publishPin();
     console.log("Pinterest autopilot published:", JSON.stringify(result));

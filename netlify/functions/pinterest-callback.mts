@@ -1,5 +1,5 @@
 import { getStore } from "@netlify/blobs";
-import { redirectUri, saveToken, siteUrl } from "./pinterest-lib";
+import { redirectUri, saveToken, siteUrl } from "./pinterest-lib.mts";
 
 export default async (req: Request) => {
   const url = new URL(req.url);

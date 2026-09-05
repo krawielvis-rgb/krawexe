@@ -1,4 +1,4 @@
-import { getToken } from "./pinterest-lib";
+import { getToken } from "./pinterest-lib.mts";
 
 export default async () => {
   const token = await getToken();
