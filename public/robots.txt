@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://ats-scanner-pro.netlify.app/sitemap.xml

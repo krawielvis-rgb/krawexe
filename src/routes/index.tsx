@@ -16,10 +16,10 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://krawexe.lovable.app/" },
+      { property: "og:url", content: "https://ats-scanner-pro.netlify.app/" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://krawexe.lovable.app/" }],
+    links: [{ rel: "canonical", href: "https://ats-scanner-pro.netlify.app/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
           applicationCategory: "BusinessApplication",
           operatingSystem: "Web",
           description: DESC,
-          url: "https://krawexe.lovable.app/",
+          url: "https://ats-scanner-pro.netlify.app/",
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         }),
       },

@@ -4,7 +4,7 @@ import { SiteShell } from "@/components/SiteShell";
 const TITLE = "ATS Resume Resources — Guides on Formats, Keywords & Rejections";
 const DESC =
   "Practical, no-fluff guides on making a resume applicant tracking system friendly: format rules, font choices, keyword extraction from job descriptions, and why ATS filters reject CVs.";
-const URL = "https://krawexe.lovable.app/resources";
+const URL = "https://ats-scanner-pro.netlify.app/resources";
 
 export const articles = [
   {

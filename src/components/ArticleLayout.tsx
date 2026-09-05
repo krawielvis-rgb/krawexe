@@ -4,7 +4,7 @@ import { ArrowLeft, FileSearch } from "lucide-react";
 import { SiteShell } from "@/components/SiteShell";
 import { AdSlot } from "@/components/AdSlot";
 
-export const SITE_URL = "https://krawexe.lovable.app";
+export const SITE_URL = "https://ats-scanner-pro.netlify.app";
 
 export function articleHead(opts: {
   title: string;

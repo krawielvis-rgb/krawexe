@@ -13,10 +13,10 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://krawexe.lovable.app/privacy" },
+      { property: "og:url", content: "https://ats-scanner-pro.netlify.app/privacy" },
       { name: "twitter:card", content: "summary" },
     ],
-    links: [{ rel: "canonical", href: "https://krawexe.lovable.app/privacy" }],
+    links: [{ rel: "canonical", href: "https://ats-scanner-pro.netlify.app/privacy" }],
   }),
   component: PrivacyPage,
 });
