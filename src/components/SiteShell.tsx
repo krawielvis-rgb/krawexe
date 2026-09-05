@@ -1,8 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { FileSearch, ShieldCheck } from "lucide-react";
+import { FileSearch, ShieldCheck, BookOpen } from "lucide-react";
 
-const tabs = [{ to: "/", label: "Scan", icon: FileSearch }];
+const tabs = [
+  { to: "/", label: "Scan", icon: FileSearch },
+  { to: "/resources", label: "Guides", icon: BookOpen },
+];
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });

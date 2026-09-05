@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { FileSearch, Sparkles, Download } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { FileSearch, Sparkles, Download, BookOpen, ArrowRight } from "lucide-react";
 import { SiteShell } from "@/components/SiteShell";
 import { AdSlot } from "@/components/AdSlot";
 import { ScanTool } from "@/components/ScanTool";
@@ -90,6 +90,29 @@ function HomePage() {
           Every score and suggestion comes from deterministic keyword, synonym and regex rules that
           run entirely in your browser. No AI models, no uploads to a server, no accounts.
         </p>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-10">
+        <div className="panel flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <BookOpen className="mt-0.5 size-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="font-display text-lg font-semibold">
+                Want to understand why ATS rejects resumes?
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Free guides on ATS formatting, keywords, fonts and common rejection causes.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/resources"
+            className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Read the guides
+            <ArrowRight className="size-4" />
+          </Link>
+        </div>
       </section>
     </SiteShell>
   );
