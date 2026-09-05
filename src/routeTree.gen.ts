@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
+import { Route as ResourcesAtsFriendlyResumeCheckRouteImport } from './routes/resources/ats-friendly-resume-check'
+import { Route as ResourcesAtsResumeFormatGuideRouteImport } from './routes/resources/ats-resume-format-guide'
+import { Route as ResourcesBestFontsAtsResumeRouteImport } from './routes/resources/best-fonts-ats-resume'
+import { Route as ResourcesResumeKeywordsFromJobDescriptionRouteImport } from './routes/resources/resume-keywords-from-job-description'
+import { Route as ResourcesWhyAtsRejectsResumesRouteImport } from './routes/resources/why-ats-rejects-resumes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +33,109 @@ const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
   path: '/resources/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesAtsFriendlyResumeCheckRoute =
+  ResourcesAtsFriendlyResumeCheckRouteImport.update({
+    id: '/resources/ats-friendly-resume-check',
+    path: '/resources/ats-friendly-resume-check',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ResourcesAtsResumeFormatGuideRoute =
+  ResourcesAtsResumeFormatGuideRouteImport.update({
+    id: '/resources/ats-resume-format-guide',
+    path: '/resources/ats-resume-format-guide',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ResourcesBestFontsAtsResumeRoute =
+  ResourcesBestFontsAtsResumeRouteImport.update({
+    id: '/resources/best-fonts-ats-resume',
+    path: '/resources/best-fonts-ats-resume',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ResourcesResumeKeywordsFromJobDescriptionRoute =
+  ResourcesResumeKeywordsFromJobDescriptionRouteImport.update({
+    id: '/resources/resume-keywords-from-job-description',
+    path: '/resources/resume-keywords-from-job-description',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ResourcesWhyAtsRejectsResumesRoute =
+  ResourcesWhyAtsRejectsResumesRouteImport.update({
+    id: '/resources/why-ats-rejects-resumes',
+    path: '/resources/why-ats-rejects-resumes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
+  '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
+  '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
+  '/resources/best-fonts-ats-resume': typeof ResourcesBestFontsAtsResumeRoute
+  '/resources/resume-keywords-from-job-description': typeof ResourcesResumeKeywordsFromJobDescriptionRoute
+  '/resources/why-ats-rejects-resumes': typeof ResourcesWhyAtsRejectsResumesRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
+  '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
+  '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
+  '/resources/best-fonts-ats-resume': typeof ResourcesBestFontsAtsResumeRoute
+  '/resources/resume-keywords-from-job-description': typeof ResourcesResumeKeywordsFromJobDescriptionRoute
+  '/resources/why-ats-rejects-resumes': typeof ResourcesWhyAtsRejectsResumesRoute
   '/resources': typeof ResourcesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/privacy': typeof PrivacyRoute
+  '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
+  '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
+  '/resources/best-fonts-ats-resume': typeof ResourcesBestFontsAtsResumeRoute
+  '/resources/resume-keywords-from-job-description': typeof ResourcesResumeKeywordsFromJobDescriptionRoute
+  '/resources/why-ats-rejects-resumes': typeof ResourcesWhyAtsRejectsResumesRoute
   '/resources/': typeof ResourcesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/privacy' | '/resources/'
+  fullPaths:
+    | '/'
+    | '/privacy'
+    | '/resources/ats-friendly-resume-check'
+    | '/resources/ats-resume-format-guide'
+    | '/resources/best-fonts-ats-resume'
+    | '/resources/resume-keywords-from-job-description'
+    | '/resources/why-ats-rejects-resumes'
+    | '/resources/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/privacy' | '/resources'
-  id: '__root__' | '/' | '/privacy' | '/resources/'
+  to:
+    | '/'
+    | '/privacy'
+    | '/resources/ats-friendly-resume-check'
+    | '/resources/ats-resume-format-guide'
+    | '/resources/best-fonts-ats-resume'
+    | '/resources/resume-keywords-from-job-description'
+    | '/resources/why-ats-rejects-resumes'
+    | '/resources'
+  id:
+    | '__root__'
+    | '/'
+    | '/privacy'
+    | '/resources/ats-friendly-resume-check'
+    | '/resources/ats-resume-format-guide'
+    | '/resources/best-fonts-ats-resume'
+    | '/resources/resume-keywords-from-job-description'
+    | '/resources/why-ats-rejects-resumes'
+    | '/resources/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacyRoute: typeof PrivacyRoute
+  ResourcesAtsFriendlyResumeCheckRoute: typeof ResourcesAtsFriendlyResumeCheckRoute
+  ResourcesAtsResumeFormatGuideRoute: typeof ResourcesAtsResumeFormatGuideRoute
+  ResourcesBestFontsAtsResumeRoute: typeof ResourcesBestFontsAtsResumeRoute
+  ResourcesResumeKeywordsFromJobDescriptionRoute: typeof ResourcesResumeKeywordsFromJobDescriptionRoute
+  ResourcesWhyAtsRejectsResumesRoute: typeof ResourcesWhyAtsRejectsResumesRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
 }
 
@@ -82,12 +162,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/ats-friendly-resume-check': {
+      id: '/resources/ats-friendly-resume-check'
+      path: '/resources/ats-friendly-resume-check'
+      fullPath: '/resources/ats-friendly-resume-check'
+      preLoaderRoute: typeof ResourcesAtsFriendlyResumeCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/ats-resume-format-guide': {
+      id: '/resources/ats-resume-format-guide'
+      path: '/resources/ats-resume-format-guide'
+      fullPath: '/resources/ats-resume-format-guide'
+      preLoaderRoute: typeof ResourcesAtsResumeFormatGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/best-fonts-ats-resume': {
+      id: '/resources/best-fonts-ats-resume'
+      path: '/resources/best-fonts-ats-resume'
+      fullPath: '/resources/best-fonts-ats-resume'
+      preLoaderRoute: typeof ResourcesBestFontsAtsResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/resume-keywords-from-job-description': {
+      id: '/resources/resume-keywords-from-job-description'
+      path: '/resources/resume-keywords-from-job-description'
+      fullPath: '/resources/resume-keywords-from-job-description'
+      preLoaderRoute: typeof ResourcesResumeKeywordsFromJobDescriptionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/why-ats-rejects-resumes': {
+      id: '/resources/why-ats-rejects-resumes'
+      path: '/resources/why-ats-rejects-resumes'
+      fullPath: '/resources/why-ats-rejects-resumes'
+      preLoaderRoute: typeof ResourcesWhyAtsRejectsResumesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacyRoute: PrivacyRoute,
+  ResourcesAtsFriendlyResumeCheckRoute: ResourcesAtsFriendlyResumeCheckRoute,
+  ResourcesAtsResumeFormatGuideRoute: ResourcesAtsResumeFormatGuideRoute,
+  ResourcesBestFontsAtsResumeRoute: ResourcesBestFontsAtsResumeRoute,
+  ResourcesResumeKeywordsFromJobDescriptionRoute:
+    ResourcesResumeKeywordsFromJobDescriptionRoute,
+  ResourcesWhyAtsRejectsResumesRoute: ResourcesWhyAtsRejectsResumesRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
