@@ -3,7 +3,7 @@ import { ArticleLayout, Prose, H2, Bullets, DataTable, articleHead } from "@/com
 
 const TITLE = "Best Fonts for an ATS-Friendly Resume (and What to Avoid)";
 const DESC =
-  "Which typefaces parse cleanly in applicant tracking systems, which ones corrupt your text, and the sizing, spacing and styling rules that keep a resume readable by software and humans.";
+  "Which typefaces parse cleanly in an ATS, which ones corrupt your text, and the sizing and spacing rules that keep a resume readable by software and humans.";
 
 export const Route = createFileRoute("/resources/best-fonts-ats-resume")({
   head: () =>

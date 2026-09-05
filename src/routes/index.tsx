@@ -6,7 +6,7 @@ import { ScanTool } from "@/components/ScanTool";
 
 const TITLE = "Free ATS Resume Scanner & CV Builder — No Signup";
 const DESC =
-  "Scan your resume against any job description for a free, rule-based ATS score, fix keyword and format gaps, and export an ATS-friendly CV as PDF or DOCX. No signup, no AI.";
+  "Scan your resume against a job description for a free ATS score, fix keyword and format gaps, and export an ATS-friendly PDF or DOCX. No signup, no AI.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,7 +17,11 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://ats-scanner-pro.netlify.app/" },
+      { property: "og:image", content: "https://ats-scanner-pro.netlify.app/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://ats-scanner-pro.netlify.app/og-image.png" },
     ],
     links: [{ rel: "canonical", href: "https://ats-scanner-pro.netlify.app/" }],
     scripts: [

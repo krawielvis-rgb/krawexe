@@ -13,6 +13,7 @@ export function articleHead(opts: {
   headline: string;
 }) {
   const url = `${SITE_URL}${opts.path}`;
+  const imageUrl = `${SITE_URL}/og-image.png`;
   return {
     meta: [
       { title: opts.title },
@@ -21,9 +22,13 @@ export function articleHead(opts: {
       { property: "og:description", content: opts.description },
       { property: "og:type", content: "article" },
       { property: "og:url", content: url },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: imageUrl },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: opts.title },
       { name: "twitter:description", content: opts.description },
+      { name: "twitter:image", content: imageUrl },
     ],
     links: [{ rel: "canonical", href: url }],
     scripts: [
@@ -35,9 +40,25 @@ export function articleHead(opts: {
           headline: opts.headline,
           description: opts.description,
           url,
+          image: imageUrl,
+          datePublished: "2026-09-05",
+          dateModified: "2026-09-05",
+          author: { "@type": "Organization", name: "ATS Pro", url: SITE_URL },
           isAccessibleForFree: true,
           publisher: { "@type": "Organization", name: "ATS Pro", url: SITE_URL },
           mainEntityOfPage: url,
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+            { "@type": "ListItem", position: 2, name: "Resources", item: `${SITE_URL}/resources` },
+            { "@type": "ListItem", position: 3, name: opts.headline, item: url },
+          ],
         }),
       },
     ],

@@ -3,7 +3,7 @@ import { ArticleLayout, Prose, H2, H3, Bullets, DataTable, articleHead } from "@
 
 const TITLE = "ATS Resume Format Guide — Sections, Dates & File Types";
 const DESC =
-  "Section order, headings, date formats, file types and layout rules that parse cleanly in every major applicant tracking system — with copy-ready examples.";
+  "Section order, headings, date formats, file types and layout rules that parse cleanly in every major ATS, with copy-ready examples.";
 
 export const Route = createFileRoute("/resources/ats-resume-format-guide")({
   head: () =>

@@ -14,7 +14,9 @@ export const Route = createFileRoute("/privacy")({
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://ats-scanner-pro.netlify.app/privacy" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: "https://ats-scanner-pro.netlify.app/og-image.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://ats-scanner-pro.netlify.app/og-image.png" },
     ],
     links: [{ rel: "canonical", href: "https://ats-scanner-pro.netlify.app/privacy" }],
   }),
@@ -40,7 +42,7 @@ const sections = [
   },
   {
     title: "Analytics",
-    body: "We do not run any analytics or tracking scripts of our own. We cannot see what you scan, build, or download.",
+    body: "We use Google Analytics to understand overall traffic patterns, such as which pages are visited and roughly how many people use the site. This is aggregated usage data — it does not include the resume or job description text you scan, which never leaves your browser. You can opt out of Google Analytics tracking using a browser extension such as the Google Analytics Opt-out Add-on.",
   },
   {
     title: "Your files",

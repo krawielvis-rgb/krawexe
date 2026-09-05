@@ -3,7 +3,7 @@ import { ArticleLayout, Prose, H2, Bullets, articleHead } from "@/components/Art
 
 const TITLE = "How to Add Resume Keywords From a Job Description";
 const DESC =
-  "A repeatable five-step method for pulling the right keywords out of a job posting and placing them where both the applicant tracking system and the recruiter will see them.";
+  "A repeatable five-step method for pulling the right keywords out of a job posting and placing them where the ATS and the recruiter will both see them.";
 
 export const Route = createFileRoute("/resources/resume-keywords-from-job-description")({
   head: () =>

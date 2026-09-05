@@ -3,7 +3,7 @@ import { ArticleLayout, Prose, H2, H3, Bullets, DataTable, articleHead } from "@
 
 const TITLE = "How to Check If Your Resume Is ATS Friendly (10-Point Test)";
 const DESC =
-  "A practical 10-point manual test plus free automated checks to confirm an applicant tracking system can actually read, parse and rank your resume.";
+  "A practical 10-point manual test plus free automated checks to confirm an ATS can actually read, parse and rank your resume.";
 
 export const Route = createFileRoute("/resources/ats-friendly-resume-check")({
   head: () =>

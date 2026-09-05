@@ -3,7 +3,7 @@ import { SiteShell } from "@/components/SiteShell";
 
 const TITLE = "ATS Resume Resources — Guides on Formats, Keywords & Rejections";
 const DESC =
-  "Practical, no-fluff guides on making a resume applicant tracking system friendly: format rules, font choices, keyword extraction from job descriptions, and why ATS filters reject CVs.";
+  "No-fluff guides on making a resume ATS friendly: format rules, font choices, keyword extraction from job postings, and why ATS filters reject CVs.";
 const URL = "https://ats-scanner-pro.netlify.app/resources";
 
 export const articles = [
@@ -48,9 +48,13 @@ export const Route = createFileRoute("/resources/")({
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: URL },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: "https://ats-scanner-pro.netlify.app/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
+      { name: "twitter:image", content: "https://ats-scanner-pro.netlify.app/og-image.png" },
     ],
     links: [{ rel: "canonical", href: URL }],
   }),

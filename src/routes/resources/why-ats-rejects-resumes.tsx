@@ -3,7 +3,7 @@ import { ArticleLayout, Prose, H2, H3, Bullets, DataTable, articleHead } from "@
 
 const TITLE = "Why Does My Resume Get Rejected by ATS? Real Causes & Fixes";
 const DESC =
-  "The real reasons applications disappear inside applicant tracking systems — parsing failures, keyword gaps, knockout questions and volume — and the fix for each one.";
+  "The real reasons applications disappear inside an ATS — parsing failures, keyword gaps, knockout questions and volume — and the fix for each one.";
 
 export const Route = createFileRoute("/resources/why-ats-rejects-resumes")({
   head: () =>
