@@ -12,4 +12,8 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Override the Lovable default (cloudflare-module) to build for Netlify Functions instead.
+  nitro: {
+    preset: "netlify",
+  },
 });
