@@ -66,6 +66,35 @@ export function Bullets({ items }: { items: ReactNode[] }) {
   );
 }
 
+export function DataTable({ head, rows }: { head: string[]; rows: ReactNode[][] }) {
+  return (
+    <div className="overflow-x-auto rounded-md border border-border">
+      <table className="w-full text-left text-sm">
+        <thead>
+          <tr className="border-b border-border bg-muted/40">
+            {head.map((h) => (
+              <th key={h} className="px-3 py-2 font-medium text-foreground">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i} className="border-b border-border last:border-0">
+              {r.map((c, j) => (
+                <td key={j} className="px-3 py-2 align-top">
+                  {c}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function ArticleLayout({
   heading,
   intro,
