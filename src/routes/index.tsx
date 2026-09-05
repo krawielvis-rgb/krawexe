@@ -64,78 +64,61 @@ const steps = [
 function HomePage() {
   return (
     <SiteShell>
-      <section className="grid items-center gap-10 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
-        <div>
-          <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
-            Will this resume survive the ATS?
-          </h1>
-          <p className="mt-4 max-w-lg text-sm text-muted-foreground sm:text-base">
-            Paste a job description, drop in your resume, and see exactly what an applicant
-            tracking system would match, miss and flag — then download a fixed version. No
-            signup, no AI, nothing leaves your browser.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center gap-4">
-            <a
-              href="#scanner"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              <FileSearch className="size-4" />
-              Scan your resume
-            </a>
-            <span className="text-xs text-muted-foreground">
-              Free · No signup · Runs in your browser
-            </span>
+      <section className="hero-surface relative overflow-hidden rounded-[2rem] border border-white/10 p-7 shadow-2xl shadow-black/30 sm:p-10 lg:p-12">
+        <div className="hero-scanline" aria-hidden="true" />
+        <div className="relative grid items-center gap-10 lg:grid-cols-[1fr_0.82fr]">
+          <div className="max-w-2xl">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.07] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
+              <span className="live-dot" /> ATS intelligence · 100% local
+            </div>
+            <h1 className="font-display text-5xl font-bold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
+              Turn your resume into an <span className="text-gradient">ATS-ready</span> application.
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
+              Compare your resume against a real job description, find the gaps, clean the structure,
+              and export a professional version recruiters and ATS parsers can actually read.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <a href="#scanner" className="neon-button inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold">
+                <FileSearch className="size-4" /> Scan your resume <ArrowRight className="size-4" />
+              </a>
+              <span className="rounded-xl border border-white/10 bg-white/[0.035] px-4 py-3 text-xs text-muted-foreground">
+                PDF · DOCX · TXT · no signup
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div className="panel relative overflow-hidden p-5">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <span className="text-xs font-medium text-muted-foreground">Scan preview</span>
-            <span className="rounded-full bg-success/15 px-2 py-0.5 text-[11px] font-semibold text-success">
-              82 / 100
-            </span>
-          </div>
-          <div className="mt-4 space-y-2.5">
-            {[
-              { label: "Contact info parses cleanly", ok: true },
-              { label: "Section headings recognized", ok: true },
-              { label: "\u201cProject management\u201d — missing from posting", ok: false },
-              { label: "Dates use consistent format", ok: true },
-            ].map((row) => (
-              <div key={row.label} className="flex items-center gap-2.5 text-sm">
-                {row.ok ? (
-                  <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-success/20 text-success">
-                    <svg viewBox="0 0 12 12" className="size-2.5" fill="none">
-                      <path
-                        d="M2 6l2.5 2.5L10 3"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                ) : (
-                  <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-warning/20 text-warning">
-                    <svg viewBox="0 0 12 12" className="size-2.5" fill="none">
-                      <path
-                        d="M6 2.5v4M6 8.5h.01"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </span>
-                )}
-                <span className={row.ok ? "text-foreground" : "text-muted-foreground"}>
-                  {row.label}
-                </span>
+          <div className="relative mx-auto w-full max-w-md">
+            <div className="hologram-card rounded-3xl border border-primary/20 bg-black/30 p-5 backdrop-blur-xl">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center gap-3">
+                  <span className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary"><FileTextIcon /></span>
+                  <div><p className="text-xs font-semibold">Resume analysis</p><p className="text-[10px] text-muted-foreground">Live preview</p></div>
+                </div>
+                <span className="rounded-full bg-success/10 px-2.5 py-1 text-[10px] font-bold text-success">OPTIMIZED</span>
               </div>
-            ))}
+              <div className="mt-6 flex items-center gap-5">
+                <div className="score-orbit">
+                  <div className="score-orbit-ring" />
+                  <div><strong>94</strong><span>/100</span></div>
+                </div>
+                <div className="min-w-0 flex-1 space-y-3">
+                  {["Keywords matched", "ATS structure", "Impact signals"].map((label, i) => (
+                    <div key={label}>
+                      <div className="mb-1 flex justify-between text-[10px]"><span className="text-muted-foreground">{label}</span><span className="font-semibold">{[96, 91, 88][i]}%</span></div>
+                      <div className="h-1.5 overflow-hidden rounded-full bg-white/5"><div className="h-full rounded-full bg-gradient-to-r from-primary to-violet-400" style={{ width: `${[96, 91, 88][i]}%` }} /></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-6 grid grid-cols-3 gap-2 text-center text-[10px]">
+                <div className="rounded-xl border border-white/8 bg-white/[0.03] p-3"><div className="text-success">✓</div><span>Readable</span></div>
+                <div className="rounded-xl border border-white/8 bg-white/[0.03] p-3"><div className="text-success">✓</div><span>Structured</span></div>
+                <div className="rounded-xl border border-white/8 bg-white/[0.03] p-3"><div className="text-primary">+12</div><span>Keywords</span></div>
+              </div>
+            </div>
+            <div className="hologram-platform" aria-hidden="true"><div /></div>
           </div>
-          <p className="mt-4 border-t border-border pt-3 text-[11px] text-muted-foreground">
-            Example output — your actual scan appears below.
-          </p>
         </div>
       </section>
 
@@ -145,52 +128,34 @@ function HomePage() {
         <ScanTool />
       </div>
 
-      <section className="mt-14 border-t border-border pt-10">
-        <h2 className="font-display text-2xl font-bold">How it works</h2>
-        <div className="mt-6 divide-y divide-border border-y border-border sm:grid sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:border-x">
+      <section className="mt-14">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div><p className="eyebrow">Workflow</p><h2 className="font-display mt-2 text-3xl font-bold">From raw resume to recruiter-ready.</h2></div>
+          <span className="hidden text-xs text-muted-foreground sm:block">Simple rules. Clear fixes. Better output.</span>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
           {steps.map((s, i) => (
-            <div key={s.title} className="flex gap-4 py-5 sm:flex-col sm:gap-3 sm:px-5 sm:py-6">
-              <span className="font-display text-3xl font-bold text-border sm:text-4xl">
-                0{i + 1}
-              </span>
-              <div>
-                <h3 className="flex items-center gap-2 font-display text-base font-semibold">
-                  <s.icon className="size-4 text-primary" />
-                  {s.title}
-                </h3>
-                <p className="mt-1.5 text-sm text-muted-foreground">{s.body}</p>
-              </div>
+            <div key={s.title} className="feature-card group">
+              <div className="mb-5 flex items-center justify-between"><span className="step-number">0{i + 1}</span><s.icon className="size-5 text-primary transition-transform group-hover:scale-110" /></div>
+              <h3 className="font-display text-xl font-semibold">{s.title.replace(/^\d\.\s*/, "")}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{s.body}</p>
             </div>
           ))}
         </div>
-        <p className="mt-5 text-xs text-muted-foreground">
-          Every score and suggestion comes from deterministic keyword, synonym and regex rules that
-          run entirely in your browser. No AI models, no uploads to a server, no accounts.
-        </p>
+        <p className="mt-5 text-xs text-muted-foreground">Every score and suggestion comes from deterministic keyword, synonym and regex rules that run entirely in your browser.</p>
       </section>
 
-      <section className="mt-12 border-t border-border pt-10">
-        <div className="panel flex flex-col items-start gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-3">
-            <BookOpen className="mt-0.5 size-5 shrink-0 text-primary" />
-            <div>
-              <h2 className="font-display text-lg font-semibold">
-                Want to understand why ATS rejects resumes?
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Free guides on ATS formatting, keywords, fonts and common rejection causes.
-              </p>
-            </div>
-          </div>
-          <Link
-            to="/resources"
-            className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Read the guides
-            <ArrowRight className="size-4" />
-          </Link>
+      <section className="mt-12">
+        <div className="panel flex flex-col items-start gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="flex items-start gap-4"><BookOpen className="mt-1 size-5 shrink-0 text-primary" /><div><p className="eyebrow">Learn the system</p><h2 className="font-display mt-1 text-xl font-semibold">Understand why ATS rejects resumes.</h2><p className="mt-1 text-sm text-muted-foreground">Formatting, keywords, fonts and the mistakes that quietly kill applications.</p></div></div>
+          <Link to="/resources" className="neon-button inline-flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold">Read the guides <ArrowRight className="size-4" /></Link>
         </div>
       </section>
     </SiteShell>
   );
 }
+
+function FileTextIcon() {
+  return <span className="text-xs font-black">CV</span>;
+}
+

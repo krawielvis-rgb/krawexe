@@ -244,7 +244,22 @@ export function ResultsPanel({
   original: string;
 }) {
   return (
-    <div className="panel p-6">
+    <div className="space-y-5">
+      <div className="result-hero panel overflow-hidden p-5 sm:p-6">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <div className="eyebrow">Scan complete</div>
+            <h2 className="mt-1 font-display text-2xl font-bold sm:text-3xl">Your resume, upgraded for ATS.</h2>
+            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">The improved version keeps the candidate's facts, removes messy extraction, standardizes headings, and makes the content easier for ATS parsers to read.</p>
+          </div>
+          <div className="flex items-center gap-3 rounded-2xl border border-success/15 bg-success/[0.05] px-4 py-3">
+            <div className="text-right"><div className="text-[10px] uppercase tracking-widest text-muted-foreground">ATS score</div><div className="font-display text-3xl font-bold text-success">{result.overallScore}<span className="text-sm text-muted-foreground">/100</span></div></div>
+            <CheckCircle2 className="size-7 text-success" />
+          </div>
+        </div>
+      </div>
+
+      <div className="panel p-6">
       <div className="grid gap-8 md:grid-cols-[220px_1fr]">
         <div className="flex flex-col items-center gap-4">
           <ScoreGauge score={result.overallScore} />
@@ -390,14 +405,24 @@ export function ResultsPanel({
             ))}
           </TabsContent>
 
-          <TabsContent value="improved" className="space-y-3 pt-5">
-            <p className="text-xs text-muted-foreground">
-              Edit freely — every download below uses exactly what is in this box.
-            </p>
+          <TabsContent value="improved" className="space-y-4 pt-5">
+            <div className="grid gap-4 xl:grid-cols-2">
+              <div className="resume-preview">
+                <div className="resume-preview-bar"><span className="status-dot status-dot-red" /> Original extraction <span className="ml-auto text-[10px] text-muted-foreground">{original.split(/\s+/).filter(Boolean).length} words</span></div>
+                <div className="resume-paper resume-paper-dim">{original}</div>
+              </div>
+              <div className="resume-preview">
+                <div className="resume-preview-bar"><span className="status-dot status-dot-green" /> ATS-ready version <span className="ml-auto rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold text-success">CLEAN</span></div>
+                <div className="resume-paper">{improved}</div>
+              </div>
+            </div>
+            <div className="rounded-xl border border-primary/10 bg-primary/[0.035] p-3 text-xs text-muted-foreground">
+              <span className="font-semibold text-foreground">Edit mode:</span> the export uses exactly the text below. We never invent experience, education, employers, or credentials.
+            </div>
             <Textarea
               value={improved}
               onChange={(e) => onImprovedChange(e.target.value)}
-              className="min-h-96 font-mono text-xs"
+              className="min-h-72 font-mono text-xs"
             />
             <DownloadRow text={improved} baseName="improved-resume" />
           </TabsContent>
@@ -406,6 +431,7 @@ export function ResultsPanel({
             <WordDiff original={original} updated={improved} />
           </TabsContent>
         </Tabs>
+      </div>
       </div>
     </div>
   );
