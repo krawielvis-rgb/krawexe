@@ -1,12 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { FileSearch, Sparkles, Download, BookOpen, ArrowRight } from "lucide-react";
+import { FileSearch, Sparkles, BookOpen, ArrowRight } from "lucide-react";
 import { SiteShell } from "@/components/SiteShell";
 import { AdSlot } from "@/components/AdSlot";
 import { ScanTool } from "@/components/ScanTool";
 
-const TITLE = "Free ATS Resume Scanner & CV Builder — No Signup";
+const TITLE = "Free ATS Resume Scanner — No Signup";
 const DESC =
-  "Scan your resume against a job description for a free ATS score, fix keyword and format gaps, and export an ATS-friendly PDF or DOCX. No signup, no AI.";
+  "Scan your resume against a job description for a free ATS score, identify keyword gaps and format problems, and get clear fixes before you apply. No signup, no AI.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,12 +52,7 @@ const steps = [
   {
     icon: Sparkles,
     title: "2. Fix",
-    body: "You get a 0–100 score, a matched/missing keyword table, pass-fail format checks and a prioritised list of fixes — plus an improved resume you can edit right on the page.",
-  },
-  {
-    icon: Download,
-    title: "3. Export",
-    body: "Download the result as a real text-based PDF, DOCX or TXT — selectable text a real applicant tracking system can actually read.",
+    body: "You get a 0–100 score, a matched/missing keyword table, pass-fail format checks and a prioritised list of fixes — without rewriting your resume.",
   },
 ];
 
@@ -75,8 +70,8 @@ function HomePage() {
               Turn your resume into an <span className="text-gradient">ATS-ready</span> application.
             </h1>
             <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
-              Compare your resume against a real job description, find the gaps, clean the structure,
-              and export a professional version recruiters and ATS parsers can actually read.
+              Compare your resume against a real job description, find keyword gaps, inspect ATS
+              formatting, and get practical fixes before you apply.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <a href="#scanner" className="neon-button inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold">
@@ -95,7 +90,7 @@ function HomePage() {
                   <span className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary"><FileTextIcon /></span>
                   <div><p className="text-xs font-semibold">Resume analysis</p><p className="text-[10px] text-muted-foreground">Live preview</p></div>
                 </div>
-                <span className="rounded-full bg-success/10 px-2.5 py-1 text-[10px] font-bold text-success">OPTIMIZED</span>
+                <span className="rounded-full bg-success/10 px-2.5 py-1 text-[10px] font-bold text-success">SCAN READY</span>
               </div>
               <div className="mt-6 flex items-center gap-5">
                 <div className="score-orbit">

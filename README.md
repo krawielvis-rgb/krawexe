@@ -2,7 +2,7 @@
 
 Build a single-purpose web app called "ATS Pro" — an ATS resume scanner and
 
-ATS-friendly CV builder. No AI/LLM API calls anywhere in the app — every score,
+ATS resume scanner with ATS-friendly export tools. No AI/LLM API calls anywhere in the app — every score,
 
 suggestion, and generated document must come from deterministic, rule-based
 
@@ -138,7 +138,8 @@ shape, computed with rules only)
 
   achieved with rules, not a model).
 
-- Generate an "Improved Resume": take the original resume text and append a new
+- Analyze the uploaded resume and show actionable ATS fixes without rewriting the candidate's content.
+
 
   "Additional Skills & Keywords" section listing the missing keywords, so a
 
@@ -152,19 +153,12 @@ Step 6 — Results UI
 
   Keywords (the full matched/missing table), Format Check (the pass/fail list),
 
-  Improved Resume (editable text area — user can tweak the generated text),
 
-  What Changed (a word-level diff between the original and improved resume:
+  Resume & Export (original resume preview with export buttons),
 
   green highlight = added, red strikethrough = removed).
 
-- The Improved Resume text area is editable, and every download button downstream
-
-  reflects the *current edited text*, not a stale generated copy — no need to
-
-  re-run analysis after a manual tweak.
-
-- Export the Improved Resume as .docx, .txt, and a real text-based .pdf (must be
+- Export the resume as .docx, .txt, and a real text-based .pdf (must be
 
   actual selectable text, not a rasterized image — this matters for it to be
 
@@ -172,7 +166,7 @@ Step 6 — Results UI
 
 =====================================================
 
-4. TOOL B — CV BUILDER FROM A JOB DESCRIPTION (no AI)
+4. TOOL B — ATS RESUME ANALYZER (no AI)
 
 =====================================================
 
@@ -230,7 +224,7 @@ Output — the actual CV document must follow strict ATS-friendly formatting rul
 
 - After generation, run the same Tool A scanning logic against the pasted JD
 
-  automatically and show the resulting score, so the user sees it's optimized
+  automatically and show the resulting score, so the user sees how ATS-ready it is
 
   before downloading.
 

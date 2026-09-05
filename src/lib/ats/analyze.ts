@@ -343,70 +343,8 @@ export type Analysis = {
   topFixes: string[];
   strengths: string[];
   weaknesses: string[];
-  improvedResume: string;
   wordCount: number;
 };
-
-export function buildImprovedResume(resume: string, _missing: KeywordMatch[]): string {
-  const cleaned = resume.replace(/\r/g, "").replace(/[ \t]+/g, " ").trim();
-  if (!cleaned) return "";
-
-  // The old implementation simply appended every missing keyword to the bottom of the
-  // resume. That creates keyword stuffing and is not a useful resume. Instead, preserve
-  // the candidate's actual facts and reorganize them into conventional ATS sections.
-  const sectionNames = [
-    "professional summary",
-    "core skills",
-    "professional experience",
-    "work experience",
-    "certifications",
-    "education",
-    "projects",
-    "summary",
-    "skills",
-    "experience",
-  ];
-  const sectionPattern = new RegExp(`\\b(${sectionNames.map((x) => x.replace(/ /g, "\\s+")).join("|")})\\b`, "ig");
-  const matches = [...cleaned.matchAll(sectionPattern)];
-
-  const title = (value: string) => value.replace(/\s+/g, " ").trim().toUpperCase();
-  const chunks: { heading: string; body: string }[] = [];
-
-  if (matches.length) {
-    const contact = cleaned.slice(0, matches[0].index ?? 0).trim();
-    if (contact) chunks.push({ heading: "", body: contact });
-    for (let i = 0; i < matches.length; i++) {
-      const heading = title(matches[i][0]);
-      const bodyStart = (matches[i].index ?? 0) + matches[i][0].length;
-      const bodyEnd = i + 1 < matches.length ? (matches[i + 1].index ?? cleaned.length) : cleaned.length;
-      const body = cleaned.slice(bodyStart, bodyEnd).trim();
-      if (body) chunks.push({ heading, body });
-    }
-  } else {
-    // Fallback for resumes without recognizable headings: do not invent facts; simply
-    // give the content a clean ATS wrapper.
-    chunks.push({ heading: "RESUME", body: cleaned });
-  }
-
-  const formatBody = (heading: string, body: string) => {
-    let value = body.replace(/\s*•\s*/g, "\n• ").replace(/\s*\u2022\s*/g, "\n• ");
-    value = value.replace(/\s+(?=\d{1,2}\/\d{4}\s*-\s*(?:present|\d{1,2}\/\d{4}))/gi, "\n");
-    value = value.replace(/\s{2,}/g, " ").trim();
-
-    if (["CORE SKILLS", "SKILLS"].includes(heading)) {
-      return value.split(/\n|,\s+(?=[A-Z])/).map((x) => x.trim()).filter(Boolean).map((x) => `• ${x.replace(/^[-•*]\s*/, "")}`).join("\n");
-    }
-    if (heading === "") {
-      return value.replace(/\s+—\s+/g, "\n");
-    }
-    return value;
-  };
-
-  return chunks
-    .map(({ heading, body }) => heading ? `${heading}\n${formatBody(heading, body)}` : formatBody(heading, body))
-    .join("\n\n")
-    .trim() + "\n";
-}
 
 export function analyze(resumeText: string, jobDescription: string): Analysis {
   const keywords = extractKeywords(jobDescription);
@@ -461,7 +399,6 @@ export function analyze(resumeText: string, jobDescription: string): Analysis {
     topFixes,
     strengths,
     weaknesses,
-    improvedResume: buildImprovedResume(resumeText, missing),
     wordCount: resumeText.split(/\s+/).filter(Boolean).length,
   };
 }

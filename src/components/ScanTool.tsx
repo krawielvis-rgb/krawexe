@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   AlertTriangle,
   CheckCircle2,
-  Download,
   FileText,
   Loader2,
   Type,
@@ -18,7 +17,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { analyze, type Analysis } from "@/lib/ats/analyze";
 import { extractText } from "@/lib/ats/extract";
-import { exportDocx, exportPdf, exportTxt } from "@/lib/ats/exporters";
 
 export function ScanTool() {
   const [jd, setJd] = useState("");
@@ -30,7 +28,6 @@ export function ScanTool() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Analysis | null>(null);
-  const [improved, setImproved] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function onFile(file: File | undefined) {
@@ -66,7 +63,6 @@ export function ScanTool() {
     setError("");
     const analysis = analyze(resumeText, jd);
     setResult(analysis);
-    setImproved(analysis.improvedResume);
   }
 
   const hasResume = Boolean(fileName || resumeText.trim());
@@ -219,12 +215,7 @@ export function ScanTool() {
 
       {result && (
         <>
-          <ResultsPanel
-            result={result}
-            improved={improved}
-            onImprovedChange={setImproved}
-            original={resumeText}
-          />
+          <ResultsPanel result={result} />
           <AdSlot id="ats-ad-below-results" height={250} />
         </>
       )}
@@ -234,14 +225,8 @@ export function ScanTool() {
 
 export function ResultsPanel({
   result,
-  improved,
-  onImprovedChange,
-  original,
 }: {
   result: Analysis;
-  improved: string;
-  onImprovedChange: (v: string) => void;
-  original: string;
 }) {
   return (
     <div className="space-y-5">
@@ -249,8 +234,8 @@ export function ResultsPanel({
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="eyebrow">Scan complete</div>
-            <h2 className="mt-1 font-display text-2xl font-bold sm:text-3xl">Your resume, upgraded for ATS.</h2>
-            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">The improved version keeps the candidate's facts, removes messy extraction, standardizes headings, and makes the content easier for ATS parsers to read.</p>
+            <h2 className="mt-1 font-display text-2xl font-bold sm:text-3xl">Your ATS scan is ready.</h2>
+            <p className="mt-1 max-w-2xl text-sm text-muted-foreground">See exactly what is working, what is missing, and what to fix before you apply.</p>
           </div>
           <div className="flex items-center gap-3 rounded-2xl border border-success/15 bg-success/[0.05] px-4 py-3">
             <div className="text-right"><div className="text-[10px] uppercase tracking-widest text-muted-foreground">ATS score</div><div className="font-display text-3xl font-bold text-success">{result.overallScore}<span className="text-sm text-muted-foreground">/100</span></div></div>
@@ -280,8 +265,6 @@ export function ResultsPanel({
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="keywords">Keywords</TabsTrigger>
             <TabsTrigger value="format">Format check</TabsTrigger>
-            <TabsTrigger value="improved">Improved resume</TabsTrigger>
-            <TabsTrigger value="diff">What changed</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6 pt-5">
@@ -405,31 +388,6 @@ export function ResultsPanel({
             ))}
           </TabsContent>
 
-          <TabsContent value="improved" className="space-y-4 pt-5">
-            <div className="grid gap-4 xl:grid-cols-2">
-              <div className="resume-preview">
-                <div className="resume-preview-bar"><span className="status-dot status-dot-red" /> Original extraction <span className="ml-auto text-[10px] text-muted-foreground">{original.split(/\s+/).filter(Boolean).length} words</span></div>
-                <div className="resume-paper resume-paper-dim">{original}</div>
-              </div>
-              <div className="resume-preview">
-                <div className="resume-preview-bar"><span className="status-dot status-dot-green" /> ATS-ready version <span className="ml-auto rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-bold text-success">CLEAN</span></div>
-                <div className="resume-paper">{improved}</div>
-              </div>
-            </div>
-            <div className="rounded-xl border border-primary/10 bg-primary/[0.035] p-3 text-xs text-muted-foreground">
-              <span className="font-semibold text-foreground">Edit mode:</span> the export uses exactly the text below. We never invent experience, education, employers, or credentials.
-            </div>
-            <Textarea
-              value={improved}
-              onChange={(e) => onImprovedChange(e.target.value)}
-              className="min-h-72 font-mono text-xs"
-            />
-            <DownloadRow text={improved} baseName="improved-resume" />
-          </TabsContent>
-
-          <TabsContent value="diff" className="pt-5">
-            <WordDiff original={original} updated={improved} />
-          </TabsContent>
         </Tabs>
       </div>
       </div>
@@ -437,50 +395,3 @@ export function ResultsPanel({
   );
 }
 
-export function DownloadRow({ text, baseName }: { text: string; baseName: string }) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      <Button variant="secondary" onClick={() => exportDocx(text, `${baseName}.docx`)}>
-        <Download className="size-4" /> DOCX
-      </Button>
-      <Button variant="secondary" onClick={() => exportPdf(text, `${baseName}.pdf`)}>
-        <Download className="size-4" /> PDF (text-based)
-      </Button>
-      <Button variant="secondary" onClick={() => exportTxt(text, `${baseName}.txt`)}>
-        <Download className="size-4" /> TXT
-      </Button>
-    </div>
-  );
-}
-
-function WordDiff({ original, updated }: { original: string; updated: string }) {
-  const [parts, setParts] = useState<{ value: string; added?: boolean; removed?: boolean }[]>([]);
-
-  useEffect(() => {
-    let cancelled = false;
-    import("diff").then(({ diffWords }) => {
-      if (!cancelled) setParts(diffWords(original, updated));
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [original, updated]);
-
-  return (
-    <div className="max-h-[520px] overflow-auto whitespace-pre-wrap rounded-lg border border-border bg-secondary/30 p-4 font-mono text-xs leading-relaxed">
-      {parts.map((p, i) =>
-        p.added ? (
-          <span key={i} className="rounded bg-success/25 text-success">
-            {p.value}
-          </span>
-        ) : p.removed ? (
-          <span key={i} className="rounded bg-destructive/20 text-destructive line-through">
-            {p.value}
-          </span>
-        ) : (
-          <span key={i}>{p.value}</span>
-        ),
-      )}
-    </div>
-  );
-}
