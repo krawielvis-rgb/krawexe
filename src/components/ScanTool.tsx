@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
   CheckCircle2,
   Download,
   FileText,
   Loader2,
-  Upload,
+  Type,
+  UploadCloud,
+  X,
   XCircle,
 } from "lucide-react";
 import { ScoreBar, ScoreGauge } from "@/components/ScoreGauge";
@@ -22,11 +24,14 @@ export function ScanTool() {
   const [jd, setJd] = useState("");
   const [resumeText, setResumeText] = useState("");
   const [fileName, setFileName] = useState("");
+  const [pasteMode, setPasteMode] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
   const [warning, setWarning] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Analysis | null>(null);
   const [improved, setImproved] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function onFile(file: File | undefined) {
     if (!file) return;
@@ -37,12 +42,20 @@ export function ScanTool() {
       const res = await extractText(file);
       setResumeText(res.text);
       setFileName(file.name);
+      setPasteMode(false);
       if (res.warning) setWarning(res.warning);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not read that file.");
     } finally {
       setBusy(false);
     }
+  }
+
+  function clearResume() {
+    setResumeText("");
+    setFileName("");
+    setWarning("");
+    if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
   function runAnalysis() {
@@ -56,6 +69,8 @@ export function ScanTool() {
     setImproved(analysis.improvedResume);
   }
 
+  const hasResume = Boolean(fileName || resumeText.trim());
+
   return (
     <div className="space-y-8">
       <div>
@@ -67,7 +82,17 @@ export function ScanTool() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         <div className="panel space-y-3 p-5">
-          <Label htmlFor="jd">Job description</Label>
+          <div className="flex items-baseline justify-between">
+            <Label htmlFor="jd" className="flex items-center gap-2">
+              <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-secondary font-display text-[11px] font-semibold text-muted-foreground">
+                1
+              </span>
+              Job description
+            </Label>
+            <span className="font-mono text-[11px] text-muted-foreground">
+              {jd.split(/\s+/).filter(Boolean).length} words
+            </span>
+          </div>
           <Textarea
             id="jd"
             value={jd}
@@ -75,36 +100,105 @@ export function ScanTool() {
             placeholder="Paste the full job description here…"
             className="min-h-64 font-mono text-xs"
           />
-          <p className="text-xs text-muted-foreground">
-            {jd.split(/\s+/).filter(Boolean).length} words pasted
-          </p>
         </div>
 
-        <div className="panel space-y-3 p-5">
-          <Label>Resume (PDF, DOCX or TXT)</Label>
-          <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-border bg-secondary/40 px-4 py-8 text-center transition-colors hover:border-primary/60">
-            {busy ? (
-              <Loader2 className="size-6 animate-spin text-primary" />
-            ) : (
-              <Upload className="size-6 text-primary" />
-            )}
-            <span className="text-sm font-medium">
-              {fileName || "Click to upload your resume"}
-            </span>
-            <span className="text-xs text-muted-foreground">PDF · DOCX · TXT</span>
-            <input
-              type="file"
-              accept=".pdf,.docx,.txt"
-              className="hidden"
-              onChange={(e) => onFile(e.target.files?.[0])}
-            />
-          </label>
-          <Textarea
-            value={resumeText}
-            onChange={(e) => setResumeText(e.target.value)}
-            placeholder="…or paste your resume text directly"
-            className="min-h-32 font-mono text-xs"
-          />
+        <div className="panel space-y-3 border-t-2 border-t-primary p-5">
+          <div className="flex items-baseline justify-between">
+            <Label className="flex items-center gap-2">
+              <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/20 font-display text-[11px] font-semibold text-primary">
+                2
+              </span>
+              Resume
+            </Label>
+            <span className="text-[11px] text-muted-foreground">PDF · DOCX · TXT</span>
+          </div>
+
+          {hasResume && !pasteMode ? (
+            <div className="flex min-h-64 flex-col items-center justify-center gap-3 rounded-lg border border-border bg-secondary/30 px-4 py-8 text-center">
+              <div className="flex size-11 items-center justify-center rounded-full bg-primary/15">
+                <FileText className="size-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">{fileName || "Pasted resume text"}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  {resumeText.split(/\s+/).filter(Boolean).length} words extracted
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={clearResume}
+                className="inline-flex items-center gap-1 text-xs text-muted-foreground underline decoration-dotted hover:text-foreground"
+              >
+                <X className="size-3.5" /> Remove and start over
+              </button>
+            </div>
+          ) : pasteMode ? (
+            <div className="space-y-2">
+              <Textarea
+                autoFocus
+                value={resumeText}
+                onChange={(e) => setResumeText(e.target.value)}
+                placeholder="Paste your resume text here…"
+                className="min-h-64 font-mono text-xs"
+              />
+              <button
+                type="button"
+                onClick={() => setPasteMode(false)}
+                className="text-xs text-muted-foreground underline decoration-dotted hover:text-foreground"
+              >
+                Upload a file instead
+              </button>
+            </div>
+          ) : (
+            <>
+              <label
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragActive(true);
+                }}
+                onDragLeave={() => setDragActive(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragActive(false);
+                  onFile(e.dataTransfer.files?.[0]);
+                }}
+                className={`flex min-h-64 cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed px-4 py-8 text-center transition-colors ${
+                  dragActive
+                    ? "border-primary bg-primary/10"
+                    : "border-border bg-secondary/30 hover:border-primary/60 hover:bg-secondary/50"
+                }`}
+              >
+                {busy ? (
+                  <Loader2 className="size-7 animate-spin text-primary" />
+                ) : (
+                  <div className="flex size-11 items-center justify-center rounded-full bg-primary/15">
+                    <UploadCloud className="size-5 text-primary" />
+                  </div>
+                )}
+                <div>
+                  <p className="text-sm font-medium">
+                    {busy ? "Reading your file…" : "Drop your resume here, or click to browse"}
+                  </p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">PDF, DOCX or TXT</p>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.docx,.txt"
+                  className="hidden"
+                  onChange={(e) => onFile(e.target.files?.[0])}
+                />
+              </label>
+              <button
+                type="button"
+                onClick={() => setPasteMode(true)}
+                className="inline-flex items-center gap-1.5 text-xs text-muted-foreground underline decoration-dotted hover:text-foreground"
+              >
+                <Type className="size-3.5" /> Paste text instead
+              </button>
+            </>
+          )}
+
           {warning && (
             <p className="flex gap-2 rounded-md bg-warning/15 px-3 py-2 text-xs text-warning">
               <AlertTriangle className="mt-0.5 size-4 shrink-0" />

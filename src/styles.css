@@ -100,10 +100,11 @@
   --sidebar-border: oklch(0.33 0.026 258);
   --sidebar-ring: oklch(0.78 0.15 178);
 
-  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-display: "Fraunces", "Georgia", serif;
   --font-body: "DM Sans", "Segoe UI", sans-serif;
-  --gradient-hero: linear-gradient(135deg, oklch(0.24 0.04 210) 0%, oklch(0.19 0.025 258) 60%);
+  --gradient-hero: linear-gradient(165deg, oklch(0.235 0.045 205) 0%, oklch(0.17 0.022 250) 65%);
   --shadow-panel: 0 20px 45px -25px oklch(0 0 0 / 0.8);
+  --stamp: oklch(0.9 0.02 90);
 }
 
 @theme inline {
@@ -111,6 +112,7 @@
   --color-success-foreground: var(--success-foreground);
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
+  --color-stamp: var(--stamp);
   --font-display: var(--font-display);
   --font-sans: var(--font-body);
 }
@@ -132,7 +134,8 @@
   h3,
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.01em;
+    font-feature-settings: "ss01" 1;
   }
 }
 

@@ -64,29 +64,102 @@ const steps = [
 function HomePage() {
   return (
     <SiteShell>
-      <section className="hero-surface -mx-5 mb-2 px-5 py-10 text-center">
-        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-          Free ATS resume scanner & CV builder
-        </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
-          Check how an applicant tracking system reads your resume against a specific job — keyword
-          match, format checks and a fixed-up version you can download. No signup, no AI, nothing
-          leaves your browser.
-        </p>
+      <section className="grid items-center gap-10 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+        <div>
+          <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            Will this resume survive the ATS?
+          </h1>
+          <p className="mt-4 max-w-lg text-sm text-muted-foreground sm:text-base">
+            Paste a job description, drop in your resume, and see exactly what an applicant
+            tracking system would match, miss and flag — then download a fixed version. No
+            signup, no AI, nothing leaves your browser.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <a
+              href="#scanner"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              <FileSearch className="size-4" />
+              Scan your resume
+            </a>
+            <span className="text-xs text-muted-foreground">
+              Free · No signup · Runs in your browser
+            </span>
+          </div>
+        </div>
+
+        <div className="panel relative overflow-hidden p-5">
+          <div className="flex items-center justify-between border-b border-border pb-3">
+            <span className="text-xs font-medium text-muted-foreground">Scan preview</span>
+            <span className="rounded-full bg-success/15 px-2 py-0.5 text-[11px] font-semibold text-success">
+              82 / 100
+            </span>
+          </div>
+          <div className="mt-4 space-y-2.5">
+            {[
+              { label: "Contact info parses cleanly", ok: true },
+              { label: "Section headings recognized", ok: true },
+              { label: "\u201cKubernetes\u201d — missing from posting", ok: false },
+              { label: "Dates use consistent format", ok: true },
+            ].map((row) => (
+              <div key={row.label} className="flex items-center gap-2.5 text-sm">
+                {row.ok ? (
+                  <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-success/20 text-success">
+                    <svg viewBox="0 0 12 12" className="size-2.5" fill="none">
+                      <path
+                        d="M2 6l2.5 2.5L10 3"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                ) : (
+                  <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-destructive/20 text-destructive">
+                    <svg viewBox="0 0 12 12" className="size-2.5" fill="none">
+                      <path
+                        d="M3 3l6 6M9 3l-6 6"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                )}
+                <span className={row.ok ? "text-foreground" : "text-muted-foreground"}>
+                  {row.label}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 border-t border-border pt-3 text-[11px] text-muted-foreground">
+            Example output — your actual scan appears below.
+          </p>
+        </div>
       </section>
 
       <AdSlot id="ats-ad-top-banner" height={90} />
 
-      <ScanTool />
+      <div id="scanner" className="scroll-mt-20">
+        <ScanTool />
+      </div>
 
-      <section className="mt-12 border-t border-border pt-10">
+      <section className="mt-14 border-t border-border pt-10">
         <h2 className="font-display text-2xl font-bold">How it works</h2>
-        <div className="mt-5 grid gap-4 sm:grid-cols-3">
-          {steps.map((s) => (
-            <div key={s.title} className="panel p-5">
-              <s.icon className="size-5 text-primary" />
-              <h3 className="mt-3 font-display text-base font-semibold">{s.title}</h3>
-              <p className="mt-1.5 text-sm text-muted-foreground">{s.body}</p>
+        <div className="mt-6 divide-y divide-border border-y border-border sm:grid sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:border-x">
+          {steps.map((s, i) => (
+            <div key={s.title} className="flex gap-4 py-5 sm:flex-col sm:gap-3 sm:px-5 sm:py-6">
+              <span className="font-display text-3xl font-bold text-border sm:text-4xl">
+                0{i + 1}
+              </span>
+              <div>
+                <h3 className="flex items-center gap-2 font-display text-base font-semibold">
+                  <s.icon className="size-4 text-primary" />
+                  {s.title}
+                </h3>
+                <p className="mt-1.5 text-sm text-muted-foreground">{s.body}</p>
+              </div>
             </div>
           ))}
         </div>
