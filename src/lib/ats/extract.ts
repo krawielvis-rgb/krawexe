@@ -17,12 +17,32 @@ async function extractPdf(file: File): Promise<ExtractResult> {
   for (let i = 1; i <= doc.numPages; i++) {
     const page = await doc.getPage(i);
     const content = await page.getTextContent();
-    const strings = content.items
-      .map((it) => ("str" in it ? (it as { str: string }).str : ""))
-      .filter(Boolean);
-    text += strings.join(" ") + "\n";
+    let lastY: number | null = null;
+    let line = "";
+    for (const raw of content.items) {
+      if (!("str" in raw)) continue;
+      const item = raw as { str: string; transform: number[]; hasEOL?: boolean };
+      const y = item.transform?.[5];
+      if (lastY !== null && y !== undefined && Math.abs(y - lastY) > 2) {
+        text += line.trim() + "\n";
+        line = "";
+      }
+      line += item.str + (item.hasEOL ? "" : " ");
+      if (y !== undefined) lastY = y;
+      if (item.hasEOL) {
+        text += line.trim() + "\n";
+        line = "";
+        lastY = null;
+      }
+    }
+    if (line.trim()) text += line.trim() + "\n";
+    text += "\n";
   }
-  const trimmed = text.trim();
+  const trimmed = text
+    .replace(/[ \t]+/g, " ")
+    .replace(/ *\n */g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
   const result: ExtractResult = { kind: "pdf", text: trimmed };
   if (trimmed.length < 40) {
     result.warning =

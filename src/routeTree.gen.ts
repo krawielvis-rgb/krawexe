@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AutopilotRouteImport } from './routes/autopilot'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
 import { Route as ResourcesAtsFriendlyResumeCheckRouteImport } from './routes/resources/ats-friendly-resume-check'
@@ -21,6 +22,11 @@ import { Route as ResourcesWhyAtsRejectsResumesRouteImport } from './routes/reso
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutopilotRoute = AutopilotRouteImport.update({
+  id: '/autopilot',
+  path: '/autopilot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -66,6 +72,7 @@ const ResourcesWhyAtsRejectsResumesRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/autopilot': typeof AutopilotRoute
   '/privacy': typeof PrivacyRoute
   '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
   '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
@@ -76,6 +83,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/autopilot': typeof AutopilotRoute
   '/privacy': typeof PrivacyRoute
   '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
   '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
@@ -87,6 +95,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/autopilot': typeof AutopilotRoute
   '/privacy': typeof PrivacyRoute
   '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
   '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/autopilot'
     | '/privacy'
     | '/resources/ats-friendly-resume-check'
     | '/resources/ats-resume-format-guide'
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/autopilot'
     | '/privacy'
     | '/resources/ats-friendly-resume-check'
     | '/resources/ats-resume-format-guide'
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/autopilot'
     | '/privacy'
     | '/resources/ats-friendly-resume-check'
     | '/resources/ats-resume-format-guide'
@@ -130,6 +142,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AutopilotRoute: typeof AutopilotRoute
   PrivacyRoute: typeof PrivacyRoute
   ResourcesAtsFriendlyResumeCheckRoute: typeof ResourcesAtsFriendlyResumeCheckRoute
   ResourcesAtsResumeFormatGuideRoute: typeof ResourcesAtsResumeFormatGuideRoute
@@ -146,6 +159,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/autopilot': {
+      id: '/autopilot'
+      path: '/autopilot'
+      fullPath: '/autopilot'
+      preLoaderRoute: typeof AutopilotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -202,6 +222,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AutopilotRoute: AutopilotRoute,
   PrivacyRoute: PrivacyRoute,
   ResourcesAtsFriendlyResumeCheckRoute: ResourcesAtsFriendlyResumeCheckRoute,
   ResourcesAtsResumeFormatGuideRoute: ResourcesAtsResumeFormatGuideRoute,

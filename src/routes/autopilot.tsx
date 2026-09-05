@@ -67,13 +67,15 @@ function AutopilotPage() {
         <div className="panel p-6 sm:p-7">
           <div className="flex items-start justify-between gap-4"><div><p className="eyebrow">02 · Configuration</p><h2 className="mt-2 font-display text-2xl font-bold">Server checklist</h2></div><TriangleAlert className="size-5 text-primary" /></div>
           <div className="mt-5 space-y-2">
-            {[
-              ["PINTEREST_CLIENT_ID", "Pinterest app ID"],
-              ["PINTEREST_CLIENT_SECRET", "Pinterest app secret"],
-              ["PINTEREST_BOARD_ID", "Destination board"],
-              ["PINTEREST_IMAGE_URL", "Public PNG/JPEG pin image"],
-              ["DEEPSEEK_API_KEY", "DeepSeek server key"],
-            ].map(([key, label]) => <CheckRow key={key} label={label} ok={!status?.missing.includes(key)} />)}
+            {(
+              [
+                ["PINTEREST_CLIENT_ID", "Pinterest app ID"],
+                ["PINTEREST_CLIENT_SECRET", "Pinterest app secret"],
+                ["PINTEREST_BOARD_ID", "Destination board"],
+                ["PINTEREST_IMAGE_URL", "Public PNG/JPEG pin image"],
+                ["DEEPSEEK_API_KEY", "DeepSeek server key"],
+              ] as const
+            ).map(([key, label]) => <CheckRow key={key} label={label} ok={!status?.missing.includes(key)} />)}
           </div>
         </div>
       </section>
