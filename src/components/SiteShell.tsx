@@ -1,10 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { FileSearch, ShieldCheck, BookOpen, Sparkles, Pin } from "lucide-react";
+import { FileSearch, ShieldCheck, BookOpen, Sparkles } from "lucide-react";
 
 const tabs = [
   { to: "/", label: "Scan Resume", icon: FileSearch },
-  { to: "/autopilot", label: "Pinterest Autopilot", icon: Pin },
   { to: "/resources", label: "Guides", icon: BookOpen },
 ];
 
@@ -17,8 +16,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-7xl items-center gap-4 px-5 py-3.5">
           <Link to="/" className="brand group flex items-center gap-3"><span className="brand-mark"><ShieldCheck className="size-5" /></span><span><span className="block font-display text-lg font-bold tracking-wide">ATS Pro</span><span className="hidden text-[9px] uppercase tracking-[0.25em] text-muted-foreground sm:block">ATS intelligence platform</span></span></Link>
           <nav className="ml-4 flex items-center gap-1 rounded-2xl border border-white/10 bg-white/[0.035] p-1 shadow-2xl shadow-black/20">{tabs.map((t) => { const active = t.to === "/" ? path === "/" : path.startsWith(t.to); return <Link key={t.to} to={t.to} className={`nav-link ${active ? "nav-link-active" : ""}`}><t.icon className="size-3.5" />{t.label}</Link>; })}</nav>
-          <div className="ml-auto hidden items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1.5 text-[11px] text-muted-foreground md:flex"><span className="live-dot" /> Server automation ready</div>
-          <div className="brand-mark brand-mark-small ml-auto md:ml-0"><Sparkles className="size-4" /></div>
+          <div className="brand-mark brand-mark-small ml-auto"><Sparkles className="size-4" /></div>
         </div>
       </header>
       <main className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-5 py-8 md:py-10">{children}</main>
