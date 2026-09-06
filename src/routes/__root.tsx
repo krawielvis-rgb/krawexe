@@ -118,6 +118,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         async: true,
         crossOrigin: "anonymous",
       },
+      {
+        id: "aclib",
+        src: "//acscdn.com/script/aclib.js",
+      },
+      {
+        children: `
+          aclib.runAutoTag({
+            zoneId: 'z6ig4aax16',
+          });
+        `,
+      },
     ],
   }),
 
