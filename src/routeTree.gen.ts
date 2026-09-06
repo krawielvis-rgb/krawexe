@@ -16,10 +16,12 @@ import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
 import { Route as ResourcesAtsFriendlyResumeCheckRouteImport } from './routes/resources/ats-friendly-resume-check'
 import { Route as ResourcesAtsResumeFormatGuideRouteImport } from './routes/resources/ats-resume-format-guide'
 import { Route as ResourcesBestFontsAtsResumeRouteImport } from './routes/resources/best-fonts-ats-resume'
+import { Route as ResourcesCareerChangeResumeAtsRouteImport } from './routes/resources/career-change-resume-ats'
 import { Route as ResourcesPdfVsWordResumeAtsRouteImport } from './routes/resources/pdf-vs-word-resume-ats'
 import { Route as ResourcesResumeKeywordsFromJobDescriptionRouteImport } from './routes/resources/resume-keywords-from-job-description'
 import { Route as ResourcesResumeLengthAtsRouteImport } from './routes/resources/resume-length-ats'
 import { Route as ResourcesResumeVsCvDifferenceRouteImport } from './routes/resources/resume-vs-cv-difference'
+import { Route as ResourcesSkillsSectionAtsRouteImport } from './routes/resources/skills-section-ats'
 import { Route as ResourcesWhyAtsRejectsResumesRouteImport } from './routes/resources/why-ats-rejects-resumes'
 
 const IndexRoute = IndexRouteImport.update({
@@ -60,6 +62,12 @@ const ResourcesBestFontsAtsResumeRoute =
     path: '/resources/best-fonts-ats-resume',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ResourcesCareerChangeResumeAtsRoute =
+  ResourcesCareerChangeResumeAtsRouteImport.update({
+    id: '/resources/career-change-resume-ats',
+    path: '/resources/career-change-resume-ats',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ResourcesPdfVsWordResumeAtsRoute =
   ResourcesPdfVsWordResumeAtsRouteImport.update({
     id: '/resources/pdf-vs-word-resume-ats',
@@ -84,6 +92,12 @@ const ResourcesResumeVsCvDifferenceRoute =
     path: '/resources/resume-vs-cv-difference',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ResourcesSkillsSectionAtsRoute =
+  ResourcesSkillsSectionAtsRouteImport.update({
+    id: '/resources/skills-section-ats',
+    path: '/resources/skills-section-ats',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ResourcesWhyAtsRejectsResumesRoute =
   ResourcesWhyAtsRejectsResumesRouteImport.update({
     id: '/resources/why-ats-rejects-resumes',
@@ -98,10 +112,12 @@ export interface FileRoutesByFullPath {
   '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
   '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
   '/resources/best-fonts-ats-resume': typeof ResourcesBestFontsAtsResumeRoute
+  '/resources/career-change-resume-ats': typeof ResourcesCareerChangeResumeAtsRoute
   '/resources/pdf-vs-word-resume-ats': typeof ResourcesPdfVsWordResumeAtsRoute
   '/resources/resume-keywords-from-job-description': typeof ResourcesResumeKeywordsFromJobDescriptionRoute
   '/resources/resume-length-ats': typeof ResourcesResumeLengthAtsRoute
   '/resources/resume-vs-cv-difference': typeof ResourcesResumeVsCvDifferenceRoute
+  '/resources/skills-section-ats': typeof ResourcesSkillsSectionAtsRoute
   '/resources/why-ats-rejects-resumes': typeof ResourcesWhyAtsRejectsResumesRoute
   '/resources/': typeof ResourcesIndexRoute
 }
@@ -112,10 +128,12 @@ export interface FileRoutesByTo {
   '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
   '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
   '/resources/best-fonts-ats-resume': typeof ResourcesBestFontsAtsResumeRoute
+  '/resources/career-change-resume-ats': typeof ResourcesCareerChangeResumeAtsRoute
   '/resources/pdf-vs-word-resume-ats': typeof ResourcesPdfVsWordResumeAtsRoute
   '/resources/resume-keywords-from-job-description': typeof ResourcesResumeKeywordsFromJobDescriptionRoute
   '/resources/resume-length-ats': typeof ResourcesResumeLengthAtsRoute
   '/resources/resume-vs-cv-difference': typeof ResourcesResumeVsCvDifferenceRoute
+  '/resources/skills-section-ats': typeof ResourcesSkillsSectionAtsRoute
   '/resources/why-ats-rejects-resumes': typeof ResourcesWhyAtsRejectsResumesRoute
   '/resources': typeof ResourcesIndexRoute
 }
@@ -127,10 +145,12 @@ export interface FileRoutesById {
   '/resources/ats-friendly-resume-check': typeof ResourcesAtsFriendlyResumeCheckRoute
   '/resources/ats-resume-format-guide': typeof ResourcesAtsResumeFormatGuideRoute
   '/resources/best-fonts-ats-resume': typeof ResourcesBestFontsAtsResumeRoute
+  '/resources/career-change-resume-ats': typeof ResourcesCareerChangeResumeAtsRoute
   '/resources/pdf-vs-word-resume-ats': typeof ResourcesPdfVsWordResumeAtsRoute
   '/resources/resume-keywords-from-job-description': typeof ResourcesResumeKeywordsFromJobDescriptionRoute
   '/resources/resume-length-ats': typeof ResourcesResumeLengthAtsRoute
   '/resources/resume-vs-cv-difference': typeof ResourcesResumeVsCvDifferenceRoute
+  '/resources/skills-section-ats': typeof ResourcesSkillsSectionAtsRoute
   '/resources/why-ats-rejects-resumes': typeof ResourcesWhyAtsRejectsResumesRoute
   '/resources/': typeof ResourcesIndexRoute
 }
@@ -143,10 +163,12 @@ export interface FileRouteTypes {
     | '/resources/ats-friendly-resume-check'
     | '/resources/ats-resume-format-guide'
     | '/resources/best-fonts-ats-resume'
+    | '/resources/career-change-resume-ats'
     | '/resources/pdf-vs-word-resume-ats'
     | '/resources/resume-keywords-from-job-description'
     | '/resources/resume-length-ats'
     | '/resources/resume-vs-cv-difference'
+    | '/resources/skills-section-ats'
     | '/resources/why-ats-rejects-resumes'
     | '/resources/'
   fileRoutesByTo: FileRoutesByTo
@@ -157,10 +179,12 @@ export interface FileRouteTypes {
     | '/resources/ats-friendly-resume-check'
     | '/resources/ats-resume-format-guide'
     | '/resources/best-fonts-ats-resume'
+    | '/resources/career-change-resume-ats'
     | '/resources/pdf-vs-word-resume-ats'
     | '/resources/resume-keywords-from-job-description'
     | '/resources/resume-length-ats'
     | '/resources/resume-vs-cv-difference'
+    | '/resources/skills-section-ats'
     | '/resources/why-ats-rejects-resumes'
     | '/resources'
   id:
@@ -171,10 +195,12 @@ export interface FileRouteTypes {
     | '/resources/ats-friendly-resume-check'
     | '/resources/ats-resume-format-guide'
     | '/resources/best-fonts-ats-resume'
+    | '/resources/career-change-resume-ats'
     | '/resources/pdf-vs-word-resume-ats'
     | '/resources/resume-keywords-from-job-description'
     | '/resources/resume-length-ats'
     | '/resources/resume-vs-cv-difference'
+    | '/resources/skills-section-ats'
     | '/resources/why-ats-rejects-resumes'
     | '/resources/'
   fileRoutesById: FileRoutesById
@@ -186,10 +212,12 @@ export interface RootRouteChildren {
   ResourcesAtsFriendlyResumeCheckRoute: typeof ResourcesAtsFriendlyResumeCheckRoute
   ResourcesAtsResumeFormatGuideRoute: typeof ResourcesAtsResumeFormatGuideRoute
   ResourcesBestFontsAtsResumeRoute: typeof ResourcesBestFontsAtsResumeRoute
+  ResourcesCareerChangeResumeAtsRoute: typeof ResourcesCareerChangeResumeAtsRoute
   ResourcesPdfVsWordResumeAtsRoute: typeof ResourcesPdfVsWordResumeAtsRoute
   ResourcesResumeKeywordsFromJobDescriptionRoute: typeof ResourcesResumeKeywordsFromJobDescriptionRoute
   ResourcesResumeLengthAtsRoute: typeof ResourcesResumeLengthAtsRoute
   ResourcesResumeVsCvDifferenceRoute: typeof ResourcesResumeVsCvDifferenceRoute
+  ResourcesSkillsSectionAtsRoute: typeof ResourcesSkillsSectionAtsRoute
   ResourcesWhyAtsRejectsResumesRoute: typeof ResourcesWhyAtsRejectsResumesRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
 }
@@ -245,6 +273,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesBestFontsAtsResumeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/career-change-resume-ats': {
+      id: '/resources/career-change-resume-ats'
+      path: '/resources/career-change-resume-ats'
+      fullPath: '/resources/career-change-resume-ats'
+      preLoaderRoute: typeof ResourcesCareerChangeResumeAtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/pdf-vs-word-resume-ats': {
       id: '/resources/pdf-vs-word-resume-ats'
       path: '/resources/pdf-vs-word-resume-ats'
@@ -273,6 +308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesResumeVsCvDifferenceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/skills-section-ats': {
+      id: '/resources/skills-section-ats'
+      path: '/resources/skills-section-ats'
+      fullPath: '/resources/skills-section-ats'
+      preLoaderRoute: typeof ResourcesSkillsSectionAtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/why-ats-rejects-resumes': {
       id: '/resources/why-ats-rejects-resumes'
       path: '/resources/why-ats-rejects-resumes'
@@ -290,11 +332,13 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesAtsFriendlyResumeCheckRoute: ResourcesAtsFriendlyResumeCheckRoute,
   ResourcesAtsResumeFormatGuideRoute: ResourcesAtsResumeFormatGuideRoute,
   ResourcesBestFontsAtsResumeRoute: ResourcesBestFontsAtsResumeRoute,
+  ResourcesCareerChangeResumeAtsRoute: ResourcesCareerChangeResumeAtsRoute,
   ResourcesPdfVsWordResumeAtsRoute: ResourcesPdfVsWordResumeAtsRoute,
   ResourcesResumeKeywordsFromJobDescriptionRoute:
     ResourcesResumeKeywordsFromJobDescriptionRoute,
   ResourcesResumeLengthAtsRoute: ResourcesResumeLengthAtsRoute,
   ResourcesResumeVsCvDifferenceRoute: ResourcesResumeVsCvDifferenceRoute,
+  ResourcesSkillsSectionAtsRoute: ResourcesSkillsSectionAtsRoute,
   ResourcesWhyAtsRejectsResumesRoute: ResourcesWhyAtsRejectsResumesRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
 }

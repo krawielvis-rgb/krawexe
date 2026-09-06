@@ -37,6 +37,36 @@ export const articles = [
     blurb:
       "A repeatable method for pulling the right terms out of a posting and placing them where both the ATS and a recruiter will see them.",
   },
+  {
+    to: "/resources/resume-length-ats",
+    title: "How long should a resume be?",
+    blurb:
+      "One page or two? What actually changes based on experience level, and why length has almost nothing to do with ATS parsing.",
+  },
+  {
+    to: "/resources/pdf-vs-word-resume-ats",
+    title: "PDF or Word: which does ATS prefer?",
+    blurb:
+      "The honest, conditional answer — and how to tell in 10 seconds whether your PDF will actually parse.",
+  },
+  {
+    to: "/resources/resume-vs-cv-difference",
+    title: "Resume vs CV: what's the difference?",
+    blurb:
+      "The terms mean different things depending on the country and field. Here's how to tell which one a posting actually wants.",
+  },
+  {
+    to: "/resources/skills-section-ats",
+    title: "How to write a skills section that passes ATS",
+    blurb:
+      "Where to put it, what belongs in it, and the formatting choices that make a good list invisible to parsers.",
+  },
+  {
+    to: "/resources/career-change-resume-ats",
+    title: "How to write a career-change resume that passes ATS",
+    blurb:
+      "Your titles and keywords won't match the posting when you switch fields — here's how to bridge that gap honestly.",
+  },
 ] as const;
 
 export const Route = createFileRoute("/resources/")({
